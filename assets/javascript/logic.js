@@ -1,7 +1,24 @@
 $(document).ready(function(){
-	// 1. Link to Firebase
-	var trainData = new Firebase("https://train-database.firebaseio.com/");
 
+	
+  
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAVYO4eA8B_4TexeoGnYY2IQWG-UIJd8vU",
+    authDomain: "trainscheduler-7409d.firebaseapp.com",
+    databaseURL: "https://trainscheduler-7409d.firebaseio.com",
+    projectId: "trainscheduler-7409d",
+    storageBucket: "",
+    messagingSenderId: "51806708085"
+  };
+  firebase.initializeApp(config);
+    
+
+
+
+
+	var trainData = firebase.database();
 	// 2. Button for adding Trains
 	$("#addTrainBtn").on("click", function(){
 
@@ -30,7 +47,8 @@ $(document).ready(function(){
 		}
 
 		// pushing trainInfo to Firebase
-		trainData.push(newTrain);
+		trainData.ref().push(newTrain);
+		
 
 		// clear text-boxes
 		$("#trainNameInput").val("");
@@ -43,7 +61,7 @@ $(document).ready(function(){
 		return false;
 	});
 
-	trainData.on("child_added", function(childSnapshot, prevChildKey){
+	trainData.ref().on("child_added", function(childSnapshot, prevChildKey){
 
 		console.log(childSnapshot.val());
 
@@ -72,3 +90,8 @@ $(document).ready(function(){
 
 	});
 });
+
+
+
+
+
